@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "Anemoi.Workspace.WorkerService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5071",
+      "dotnetRunMessages": "true"
+    }
+  }
+}

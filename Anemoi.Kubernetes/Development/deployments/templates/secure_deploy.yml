@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-deployment
+  namespace: {{.Values.namespace}}
+  labels:
+    app: secure
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secure
+  template:
+    metadata:
+      labels:
+        app: secure
+    spec:
+      containers:
+        - name: secure
+          image: {{.Values.registry_prefix}}/anemoi/secure:dev-{{.Chart.AppVersion}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: DOTNET_ENVIRONMENT
+              value: 'Production'
+            - name: MassTransitSetting__Host
+              value: {{.Values.services.masstransit_port}}
+            - name: MassTransitSetting__VirtualHost
+              value: '/'
+            - name: MassTransitSetting__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: UserName
+            - name: MassTransitSetting__Password
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: Password
+            - name: MassTransitSetting__IsSslActive
+              value: 'false'
+      imagePullSecrets:
+        - name: {{.Values.imagePullSecrets}}

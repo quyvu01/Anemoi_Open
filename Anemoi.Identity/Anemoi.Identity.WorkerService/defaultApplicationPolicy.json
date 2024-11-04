@@ -1,0 +1,32 @@
+{
+  "DefaultApplicationPolices": {
+    "ApplicationPolicies": [
+      {
+        "Key": "applicationPolicyInternal",
+        "Value": "Internal",
+        "Roles": [
+          "Administrator",
+          "Sale",
+          "Staff",
+          "Accountant"
+        ]
+      },
+      {
+        "Key": "applicationPolicyAgency",
+        "Value": "Agency",
+        "Roles": [
+          "Administrator",
+          "Staff",
+          "Accountant"
+        ]
+      },
+      {
+        "Key": "applicationPolicyUser",
+        "Value": "User",
+        "Roles": [
+          "PersonalAgency"
+        ]
+      }
+    ]
+  }
+}

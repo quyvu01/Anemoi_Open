@@ -1,0 +1,3 @@
+namespace Anemoi.Contract.MasterData;
+
+public interface IMasterDataContractAssemblyMarker;

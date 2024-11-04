@@ -1,0 +1,3 @@
+namespace Anemoi.Notification.Application;
+
+public interface INotificationApplicationAssemblyMarker;

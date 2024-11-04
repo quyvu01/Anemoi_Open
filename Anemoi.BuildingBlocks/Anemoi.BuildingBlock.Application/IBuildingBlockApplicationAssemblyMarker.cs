@@ -1,0 +1,3 @@
+﻿namespace Anemoi.BuildingBlock.Application;
+
+public interface IBuildingBlockApplicationAssemblyMarker;

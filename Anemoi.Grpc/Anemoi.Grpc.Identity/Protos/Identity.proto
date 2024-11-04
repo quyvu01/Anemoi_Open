@@ -1,0 +1,53 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+
+option csharp_namespace = "Anemoi.Grpc.Identity";
+
+package Identity;
+
+service IdentityService{
+  rpc Login (LoginRequest) returns (AuthenticateResult);
+  rpc LogOut (LogOutRequest) returns (CommandWithVoidResult);
+}
+
+message LoginRequest {
+  string user_name = 1;
+  string password = 2;
+}
+
+
+message LogOutRequest {
+
+}
+
+message AuthenticateResult {
+  oneof result {
+    AuthenticateSucceed succeed = 1;
+    ErrorDetailResult error_detail = 2;
+  }
+}
+
+message AuthenticateSucceed {
+  string token = 1;
+  string refresh_token = 2;
+  google.protobuf.Timestamp expired_in = 3;
+}
+
+message CommandWithVoidResult {
+  oneof result {
+    VoidValue succeed = 1;
+    ErrorDetailResult error_detail = 2;
+  }
+}
+
+
+message VoidValue {
+
+}
+
+message ErrorDetailResult {
+  repeated string messages = 1;
+  string code = 2;
+}

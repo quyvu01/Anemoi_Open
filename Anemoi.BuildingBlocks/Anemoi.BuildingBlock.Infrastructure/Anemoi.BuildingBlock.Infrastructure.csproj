@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.0" />
+        <PackageReference Include="HotChocolate.Data" Version="13.9.0" />
+        <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.9.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0"/>
+        <PackageReference Include="CryptoRandom" Version="1.0.9"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Anemoi.BuildingBlock.Application\Anemoi.BuildingBlock.Application.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="RequestHandlers\" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Anemoi.Contract.CrossCuttingConcern\Anemoi.Contract.CrossCuttingConcern.csproj"/>
+
+    </ItemGroup>
+    
+</Project>

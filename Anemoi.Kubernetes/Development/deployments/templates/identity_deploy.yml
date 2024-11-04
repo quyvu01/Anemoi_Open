@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-deployment
+  namespace: {{.Values.namespace}}
+  labels:
+    app: identity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity
+  template:
+    metadata:
+      labels:
+        app: identity
+    spec:
+      containers:
+        - name: identity
+          image: {{.Values.registry_prefix}}/anemoi/identity:dev-{{.Chart.AppVersion}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: 'Production'
+            - name: MySqlDbSetting__MajorVersion
+              value: '8'
+            - name: MySqlDbSetting__MinorVersion
+              value: '0'
+            - name: MySqlDbSetting__BuildVersion
+              value: '28'
+            - name: MySqlDbSetting__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credential
+                  key: Identity
+            - name: MassTransitSetting__Host
+              value: {{.Values.services.masstransit_port}}
+            - name: MassTransitSetting__VirtualHost
+              value: '/'
+            - name: MassTransitSetting__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: UserName
+            - name: MassTransitSetting__Password
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: Password
+            - name: MassTransitSetting__IsSslActive
+              value: 'false'
+            - name: Kestrel__Endpoints__Http2__Url
+              value: 'http://*:8080'
+            - name: Kestrel__Endpoints__Http2__Protocols
+              value: 'Http2'
+            - name: Kestrel__Endpoints__Http1__Url
+              value: 'http://*:8081'
+            - name: Kestrel__Endpoints__Http1__Protocols
+              value: 'Http1'
+      imagePullSecrets:
+        - name: {{.Values.imagePullSecrets}}

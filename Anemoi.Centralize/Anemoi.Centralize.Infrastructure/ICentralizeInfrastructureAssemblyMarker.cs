@@ -1,0 +1,3 @@
+﻿namespace Anemoi.Centralize.Infrastructure;
+
+public interface ICentralizeInfrastructureAssemblyMarker;

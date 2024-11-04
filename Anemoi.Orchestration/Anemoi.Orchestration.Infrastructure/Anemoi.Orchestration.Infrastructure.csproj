@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>default</LangVersion>
+        <RootNamespace>Anemoi.Orchestrator.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MassTransit.MongoDb" Version="8.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Anemoi.Orchestration.Machine\Anemoi.Orchestration.Machine.csproj" />
+    </ItemGroup>
+
+</Project>

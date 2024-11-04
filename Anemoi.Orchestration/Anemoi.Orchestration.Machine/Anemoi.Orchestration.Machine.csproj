@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>default</LangVersion>
+        <RootNamespace>Anemoi.Orchestrator.Machine</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.Secure\Anemoi.Contract.Secure.csproj" />
+        <ProjectReference Include="..\Anemoi.Orchestration.Contract\Anemoi.Orchestration.Contract.csproj" />
+    </ItemGroup>
+
+
+</Project>

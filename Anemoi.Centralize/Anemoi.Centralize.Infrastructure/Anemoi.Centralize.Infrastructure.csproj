@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Anemoi.Centralize.Application\Anemoi.Centralize.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.7.1" />
+    </ItemGroup>
+
+</Project>

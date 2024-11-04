@@ -1,0 +1,3 @@
+namespace Anemoi.MasterData.Infrastructure;
+
+public interface IMasterDataInfrastructureAssemblyMarker;

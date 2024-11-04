@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-deployment
+  namespace: {{.Values.namespace}}
+  labels:
+    app: orchestration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orchestration
+  template:
+    metadata:
+      labels:
+        app: orchestration
+    spec:
+      containers:
+        - name: orchestration
+          image: {{.Values.registry_prefix}}/anemoi/orchestration:dev-{{.Chart.AppVersion}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: DOTNET_ENVIRONMENT
+              value: 'Production'
+            - name: MySqlDbSetting__MajorVersion
+              value: '8'
+            - name: MySqlDbSetting__MinorVersion
+              value: '0'
+            - name: MySqlDbSetting__BuildVersion
+              value: '28'
+            - name: MySqlDbSetting__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credential
+                  key: Orchestration
+            - name: MassTransitSetting__Host
+              value: {{.Values.services.masstransit_port}}
+            - name: MassTransitSetting__VirtualHost
+              value: '/'
+            - name: MassTransitSetting__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: UserName
+            - name: MassTransitSetting__Password
+              valueFrom:
+                secretKeyRef:
+                  name: masstransit-credential
+                  key: Password
+            - name: MassTransitSetting__IsSslActive
+              value: 'false'
+            - name: MongoDbSetting__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-credential
+                  key: ConnectionString
+      imagePullSecrets:
+        - name: {{.Values.imagePullSecrets}}

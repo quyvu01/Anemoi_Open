@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: masstransit-anemoi-deployment
+  namespace: {{.Values.namespace}}
+  labels:
+    app: masstransit-anemoi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: masstransit-anemoi
+  template:
+    metadata:
+      labels:
+        app: masstransit-anemoi
+    spec:
+      containers:
+        - name: masstransit-anemoi
+          image: masstransit/rabbitmq
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5672
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: root
+            - name: RABBITMQ_DEFAULT_PASS
+              value: nj7UNfwbNheDh38jhFMp3HdDyqTtYZ
+              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.services.masstransit_port}}
+  namespace: {{.Values.namespace}}
+spec:
+  selector:
+    app: masstransit-anemoi
+  type: ClusterIP
+  ports:
+    - port: 5672
+      targetPort: 5672

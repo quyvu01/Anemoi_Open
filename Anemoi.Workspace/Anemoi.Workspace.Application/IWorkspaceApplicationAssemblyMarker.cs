@@ -1,0 +1,3 @@
+namespace Anemoi.Workspace.Application;
+
+public interface IWorkspaceApplicationAssemblyMarker;

@@ -1,0 +1,22 @@
+project_name: anemoi
+namespace: anemoi-development
+imagePullSecrets: anemoi-container-registry
+registry_prefix: registry.gitlab.com/quyvu01
+services:
+  centralize_port: anemoi-centralize-port
+  master_data_port: anemoi-master-data-port
+  identity_port: anemoi-identity-port
+  masstransit_port: anemoi-masstransit-port
+domain: thedev.io.vn
+connection_strings:
+  master_data: server=14.225.210.4;port=3306;user=root;password=IE3Y7daVyn;database=Anemoi_Development_MasterData
+  identity: server=14.225.210.4;port=3306;user=root;password=IE3Y7daVyn;database=Anemoi_Development_Identity
+  orchestration: server=14.225.210.4;port=3306;user=root;password=IE3Y7daVyn;database=Anemoi_Development_Orchestration
+  notification: server=14.225.210.4;port=3306;user=root;password=IE3Y7daVyn;database=Anemoi_Development_Notification
+mongodb:
+  orchestration: mongodb://root:TvxfUHnuXt@14.225.210.4:27017
+s3_setting:
+  service_url: https://781bc9493d0d0d3f266d59263bb75a80.r2.cloudflarestorage.com
+  access_key: 9f3f0a3f111920c6622f1b791ce784ca
+  secret_key: 5e4f8ce88df3409bf1b203d345dcf4256d3a5040326a030cc06679ff94426e38
+  bucket_name : anemoi-development-storage

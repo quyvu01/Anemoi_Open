@@ -1,0 +1,3 @@
+namespace Anemoi.MasterData.Application;
+
+public interface IMasterDataApplicationAssemblyMarker;

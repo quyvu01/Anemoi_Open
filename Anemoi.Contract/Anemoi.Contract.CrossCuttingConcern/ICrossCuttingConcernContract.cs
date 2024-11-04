@@ -1,0 +1,3 @@
+namespace Anemoi.Contract.CrossCuttingConcern;
+
+public interface ICrossCuttingConcernContract;

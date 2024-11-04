@@ -1,0 +1,3 @@
+namespace Anemoi.Notification.Domain;
+
+public interface INotificationDomainAssemblyMarker;
