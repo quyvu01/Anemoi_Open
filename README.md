@@ -1,32 +1,58 @@
-# Install dotnet EF
-dotnet tool install --global dotnet-ef
+# Anemoi_Open
 
-# Change your Database setting on appsettings.json
+**Anemoi_Open** is an open-source microservices project built with modern architectural patterns, designed to provide a scalable and robust foundation for microservices-based applications. This project incorporates **CQRS (Command Query Responsibility Segregation)**, **Event-Driven Architecture (EDA)**, and **Saga Orchestration** patterns. Additionally, it features **Attribute-based Data Mapping**, simplifying data handling across services and enhancing maintainability.
 
-# To migrate the Database:
-dotnet ef migrations add [your_migration_name] --project ../[...].Infrastructure
+## 🌟 Project Highlights
 
-# To update the database: 
-dotnet ef database update
+- **CQRS Pattern**: Separates command (write) and query (read) responsibilities, improving scalability and performance.
+- **Event-Driven Architecture (EDA)**: Uses an event-based model for communication between services, reducing dependencies and enabling asynchronous operations.
+- **Saga Orchestration**: Manages distributed transactions across multiple services to ensure data consistency.
+- **Attribute-based Data Mapping**: Streamlines data mapping across services using custom attributes, reducing repetitive code and improving readability.
 
-#To Generate RSA Key
+## 🛠 Technology Stack
 
-This is usually done on the client side.
+- **.NET Core**: For backend microservices.
+- **Docker**: Containerization for easy deployment and scaling.
+- **RabbitMQ**: Message brokers to facilitate event-driven communication.
+- **Entity Framework Core**: ORM for seamless data handling.
+- **AutoMapper**: Simplifies object mapping between layers.
 
-First, we generate an RSA-2048(PKCS#1) private key.
-openssl genrsa -out private.key 2048
+## 📂 Repository Structure
 
-Then we generate the public key from the private key.
-openssl rsa -in private.key -out public.pem -RSAPublicKey_out
+The project is organized as follows:
 
-To verify the keys, use any text editor to open the private key and you should see something like this:
+```plaintext
+├── /Anemoi                     # Source code for each microservice
+│   ├── Anemoi.BuildingBlocks   # Core code base
+│   ├── Anemoi.Centralize       # Aggreagted and controllers
+│   ├── Anemoi.Contract         # DTOs and Ids
+│   ├── Anemoi.Grpc             # Gprc
+│   ├── Anemoi.Identity         # An Identity service
+│   ├── Anemoi.MasterData       # For the master data
+│   ├── Anemoi.Notification     # Email service
+│   ├── Anemoi.Orchestrator     # Saga Orchestration
+│   ├── Anemoi.Secure           # Secure service
+│   ├── Anemoi.Workspace        # The Workspace service
 
------BEGIN RSA PRIVATE KEY-----
-...
------END RSA PRIVATE KEY-----
+🚀 Getting Started
+Prerequisites
+.NET Core SDK
+Docker
+Rabbitmq: https://hub.docker.com/r/masstransit/rabbitmq for event handling
 
-The public key would look like this:
+🌐 Usage
+CQRS Pattern: Commands and queries are separated for scalable data management.
+EDA: Events are published by producers and consumed by subscribers within the microservices.
+Saga Orchestration: Manages complex transactions across multiple services to ensure data consistency.
 
------BEGIN RSA PUBLIC KEY-----
-...
------END RSA PUBLIC KEY-----
+🤝 Contributing
+Contributions are welcome! To get involved:
+
+Fork the repository
+Create a new branch (git checkout -b feature-branch)
+Commit your changes (git commit -m 'Add new feature')
+Push to the branch (git push origin feature-branch)
+Open a pull request
+
+🔗 Connect
+Thank you for your interest in Anemoi_Open! Feel free to reach out or contribute—let's build something amazing together!
