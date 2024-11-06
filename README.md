@@ -29,9 +29,6 @@ The project is organized as follows:
 │   ├── Anemoi.Grpc             # gRPC service for high-performance communication between microservices
 │   ├── Anemoi.Identity         # Identity management service for authentication and authorization
 │   ├── Anemoi.MasterData       # Provides and manages static or master data shared across services
-│   ├── Anemoi.Notification     # Manages notifications, particularly email communications
-│   ├── Anemoi.Orchestrator     # Orchestrates distributed transactions with Saga pattern
-│   ├── Anemoi.Secure           # Provides data encryption, security-related utilities, and compliance tools
 │   ├── Anemoi.Workspace        # Workspace management, handling user or resource-specific configurations
 
 Service Details
@@ -51,16 +48,7 @@ Anemoi.Identity
 Manages authentication and authorization, ensuring secure access to the system. This service is responsible for user management, access control, and identity verification, playing a crucial role in the overall security architecture.
 
 Anemoi.MasterData
-Maintains static or master data used across the application. This could include reference data, configuration settings, and other data points that do not frequently change but are accessed by multiple services.
-
-Anemoi.Notification
-Handles email notifications and other communication tasks. This service is responsible for sending alerts, updates, and notifications to users, using email or potentially other channels.
-
-Anemoi.Orchestrator
-Implements Saga Orchestration to manage distributed transactions across microservices. By coordinating workflows and transactions, it ensures data consistency and reliable outcomes in complex, multi-service operations.
-
-Anemoi.Secure
-Provides security-related functions such as data encryption and compliance with security standards. This service is designed to protect sensitive data, support encryption/decryption, and add security-focused capabilities to the application.
+Maintains static or master data used across the application. This could include reference data, configuration settings, and other data points that do not frequently change but are accessed b
 
 Anemoi.Workspace
 Manages user or resource-specific settings, allowing customization and configuration of workspaces. This service is responsible for handling configurations and settings unique to individual users or resources within the system.
