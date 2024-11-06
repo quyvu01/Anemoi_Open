@@ -4,7 +4,6 @@ using Anemoi.BuildingBlock.Application.Results;
 using Anemoi.BuildingBlock.Infrastructure.RequestHandlers.Commands.EntityFramework.EfCommandMany;
 using Anemoi.Contract.Workspace.Commands.MemberInvitationCommands.ResendMemberInvitations;
 using Anemoi.Contract.Workspace.Errors;
-using Anemoi.Orchestration.Contract.EmailSendingContract.Events.EmailSendingRelayEvents;
 using AutoMapper;
 using MassTransit;
 using Serilog;
@@ -21,15 +20,6 @@ public sealed class ResendMemberInvitationsHandler(
     : EfCommandManyVoidHandler<MemberInvitation, ResendMemberInvitationsCommand>(sqlRepository, unitOfWork, mapper,
         logger)
 {
-    protected override async Task AfterSaveChangesAsync(ResendMemberInvitationsCommand command,
-        List<MemberInvitation> models, CancellationToken cancellationToken)
-    {
-        Logger.Information("[ReCreateMemberInvitation] for: {@MemberInvitations}", models);
-        var allTasks = models.Select(x => publishEndpoint
-            .Publish<ResendEmailSendingRelay>(new { CorrelationId = x.Id }, cancellationToken));
-        await Task.WhenAll(allTasks);
-    }
-
     protected override ICommandManyFlowBuilderVoid<MemberInvitation> BuildCommand(
         IStartManyCommandVoid<MemberInvitation> fromFlow, ResendMemberInvitationsCommand command,
         CancellationToken cancellationToken)

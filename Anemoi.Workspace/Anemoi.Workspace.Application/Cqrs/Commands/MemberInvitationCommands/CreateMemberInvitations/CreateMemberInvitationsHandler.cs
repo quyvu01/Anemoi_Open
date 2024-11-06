@@ -9,7 +9,6 @@ using Anemoi.Contract.Identity.Responses;
 using Anemoi.Contract.Workspace.Commands.MemberInvitationCommands.CreateMemberInvitation;
 using Anemoi.Contract.Workspace.Errors;
 using Anemoi.Contract.Workspace.ModelIds;
-using Anemoi.Orchestration.Contract.EmailSendingContract.Events.EmailSendingRelayEvents;
 using AutoMapper;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -31,23 +30,6 @@ public sealed class CreateMemberInvitationsHandler(
     : EfCommandManyVoidHandler<MemberInvitation, CreateMemberInvitationsCommand>(sqlRepository, unitOfWork, mapper,
         logger)
 {
-    protected override async Task AfterSaveChangesAsync(CreateMemberInvitationsCommand command,
-        List<MemberInvitation> models, CancellationToken cancellationToken)
-    {
-        var allTasks = models
-            .Select(x => publishEndpoint.Publish<CreateEmailSendingRelay>(new
-            {
-                CorrelationId = x.Id.Value, Router = "memberInvitation",
-                EmailTo = x.Email, Parameters = new Dictionary<string, string>
-                {
-                    { "WorkspaceId", x.WorkspaceId.ToString() },
-                    { "MemberInvitationId", x.Id.ToString() },
-                    { "CreatorId", x.CreatorId }
-                }
-            }, cancellationToken));
-        await Task.WhenAll(allTasks);
-    }
-
     public override async Task<OneOf<None, ErrorDetailResponse>> Handle(CreateMemberInvitationsCommand request,
         CancellationToken cancellationToken)
     {

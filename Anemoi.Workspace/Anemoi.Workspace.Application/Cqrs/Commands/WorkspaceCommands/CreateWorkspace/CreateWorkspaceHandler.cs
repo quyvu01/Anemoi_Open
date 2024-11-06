@@ -5,7 +5,6 @@ using Anemoi.BuildingBlock.Infrastructure.RequestHandlers.Commands.EntityFramewo
 using Anemoi.Contract.Workspace.Commands.WorkspaceCommands.CreateWorkspace;
 using Anemoi.Contract.Workspace.Errors;
 using Anemoi.Contract.Workspace.Responses;
-using Anemoi.Orchestration.Contract.WorkspaceContract.Events.WorkspaceInitializedEvents;
 using AutoMapper;
 using MassTransit;
 using Serilog;
@@ -21,13 +20,8 @@ public sealed class CreateWorkspaceHandler(
     : EfCommandOneResultHandler<Domain.Models.Workspace, CreateWorkspaceCommand, WorkspaceIdResponse>
         (sqlRepository, unitOfWork, mapper, logger)
 {
-    private const int WorkspaceCountingLimit = 13;
-
-    protected override Task AfterSaveChangesAsync(CreateWorkspaceCommand command, Domain.Models.Workspace model,
-        WorkspaceIdResponse result, CancellationToken cancellationToken) => publishEndpoint
-        .Publish<CreateWorkspaceInitialized>(new { WorkspaceId = model.Id.ToString(), model.UserId },
-            cancellationToken);
-
+    private const int WorkspaceCountingLimit = 7;
+    
     protected override ICommandOneFlowBuilderResult<Domain.Models.Workspace, WorkspaceIdResponse>
         BuildCommand(IStartOneCommandResult<Domain.Models.Workspace, WorkspaceIdResponse> fromFlow,
             CreateWorkspaceCommand command, CancellationToken cancellationToken) => fromFlow

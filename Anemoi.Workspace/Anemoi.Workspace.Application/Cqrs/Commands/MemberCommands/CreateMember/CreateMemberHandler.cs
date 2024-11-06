@@ -10,7 +10,6 @@ using Anemoi.Contract.Workspace.Commands.MemberCommands.CreateMember;
 using Anemoi.Contract.Workspace.Errors;
 using Anemoi.Contract.Workspace.ModelIds;
 using Anemoi.Contract.Workspace.Responses;
-using Anemoi.Orchestration.Contract.WorkspaceContract.Events.MemberRoleGroupSynchronizedEvents;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
@@ -24,7 +23,6 @@ public sealed class CreateMemberHandler(
     ISqlRepository<Member> sqlRepository,
     ISqlRepository<MemberInvitation> memberInvitationRepository,
     IRequestClient<GetUserWithEmailsByEmailsQuery> getUserByEmailClient,
-    IPublishEndpoint publishEndpoint,
     IWorkspaceIdGetter workspaceIdGetter,
     IUnitOfWork unitOfWork,
     IMapper mapper,
@@ -32,19 +30,6 @@ public sealed class CreateMemberHandler(
     : EfCommandOneResultHandler<Member, CreateMemberCommand, MemberIdResponse>(sqlRepository, unitOfWork, mapper,
         logger)
 {
-    protected override async Task AfterSaveChangesAsync(CreateMemberCommand command, Member model,
-        MemberIdResponse result, CancellationToken cancellationToken)
-    {
-        var memberInvitation = await memberInvitationRepository
-            .GetQueryable(x => x.Id == command.MemberInvitationId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(cancellationToken);
-        await publishEndpoint.Publish<CreateMemberRoleGroupSynchronized>(new
-        {
-            workspaceIdGetter.WorkspaceId, model.UserId, MemberId = model.Id.Value, memberInvitation.RoleGroupIds
-        }, cancellationToken);
-    }
-
     public override async Task<OneOf<MemberIdResponse, ErrorDetailResponse>> Handle(CreateMemberCommand request,
         CancellationToken cancellationToken)
     {

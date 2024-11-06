@@ -8,7 +8,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.Identity\Anemoi.Contract.Identity.csproj" />
       <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.MasterData\Anemoi.Contract.MasterData.csproj" />
-      <ProjectReference Include="..\..\Anemoi.Orchestration\Anemoi.Orchestration.Contract\Anemoi.Orchestration.Contract.csproj" />
       <ProjectReference Include="..\Anemoi.Workspace.Domain\Anemoi.Workspace.Domain.csproj" />
     </ItemGroup>
 

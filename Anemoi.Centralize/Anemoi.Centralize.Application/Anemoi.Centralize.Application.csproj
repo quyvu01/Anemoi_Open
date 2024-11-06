@@ -9,7 +9,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.Identity\Anemoi.Contract.Identity.csproj" />
         <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.MasterData\Anemoi.Contract.MasterData.csproj" />
-        <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.Notification\Anemoi.Contract.Notification.csproj" />
         <ProjectReference Include="..\..\Anemoi.Contract\Anemoi.Contract.Workspace\Anemoi.Contract.Workspace.csproj" />
         <ProjectReference Include="..\..\Anemoi.Grpc\Anemoi.Grpc.Identity\Anemoi.Grpc.Identity.csproj" />
         <ProjectReference Include="..\Anemoi.Centralize.Domain\Anemoi.Centralize.Domain.csproj" />

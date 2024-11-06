@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Anemoi.BuildingBlock.Application.Abstractions;
 using Anemoi.BuildingBlock.Application.Cqrs.Commands.CommandFlow.CommandOneFlow;
 using Anemoi.BuildingBlock.Application.Results;
@@ -11,7 +9,6 @@ using Anemoi.Contract.Identity.Errors;
 using Anemoi.Contract.Identity.Responses;
 using Anemoi.Identity.Application.Abstractions;
 using Anemoi.Identity.Domain.Models;
-using Anemoi.Orchestration.Contract.EmailSendingContract.Events.EmailSendingRelayEvents;
 using AutoMapper;
 using MassTransit;
 using Serilog;
@@ -27,23 +24,6 @@ public sealed class CreateUserHandler(
     ISqlRepository<User> sqlRepository)
     : EfCommandOneResultHandler<User, CreateUserCommand, UserIdResponse>(sqlRepository, unitOfWork, mapper, logger)
 {
-    protected override async Task AfterSaveChangesAsync(CreateUserCommand command,
-        User model, UserIdResponse result, CancellationToken cancellationToken)
-    {
-        await userRepository.SetLockoutEnabledAsync(model, false);
-        var token = await userRepository.GenerateEmailConfirmationTokenAsync(model);
-        await publishEndpoint.Publish<CreateEmailSendingRelay>(new
-        {
-            CorrelationId = model.UserId.Value, Router = "createUser", EmailTo = model.Email,
-            Parameters = new Dictionary<string, string>
-            {
-                { nameof(model.FirstName), model.FirstName },
-                { nameof(model.LastName), model.LastName },
-                { "Code", token }
-            }
-        }, cancellationToken);
-    }
-
     protected override ICommandOneFlowBuilderResult<User, UserIdResponse> BuildCommand(
         IStartOneCommandResult<User, UserIdResponse> fromFlow,
         CreateUserCommand command, CancellationToken cancellationToken)

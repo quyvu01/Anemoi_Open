@@ -1,3 +1,0 @@
-﻿namespace Anemoi.Orchestrator.Infrastructure;
-
-public interface IOrchestrationInfrastructureAssemblyMarker;

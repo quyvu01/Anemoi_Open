@@ -4,7 +4,6 @@ using Anemoi.BuildingBlock.Application.Results;
 using Anemoi.BuildingBlock.Infrastructure.RequestHandlers.Commands.EntityFramework.EfCommandOne;
 using Anemoi.Contract.Workspace.Commands.MemberInvitationCommands.RemoveMemberInvitation;
 using Anemoi.Contract.Workspace.Errors;
-using Anemoi.Orchestration.Contract.EmailSendingContract.Events.EmailSendingRelayEvents;
 using AutoMapper;
 using MassTransit;
 using Serilog;
@@ -22,11 +21,6 @@ public sealed class RemoveMemberInvitationHandler(
         EfCommandOneVoidHandler<MemberInvitation, RemoveMemberInvitationCommand>(sqlRepository, unitOfWork,
             mapper, logger)
 {
-    protected override Task AfterSaveChangesAsync(RemoveMemberInvitationCommand command, MemberInvitation model,
-        CancellationToken cancellationToken) => publishEndpoint
-        .Publish<ClearEmailSendingRelay>(new { CorrelationId = model.Id.Value },
-            cancellationToken);
-
     protected override ICommandOneFlowBuilderVoid<MemberInvitation> BuildCommand(
         IStartOneCommandVoid<MemberInvitation> fromFlow, RemoveMemberInvitationCommand command,
         CancellationToken cancellationToken)
