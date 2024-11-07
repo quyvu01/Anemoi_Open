@@ -9,9 +9,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Anemoi.Contract.CrossCuttingConcern\Anemoi.Contract.CrossCuttingConcern.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Commands\MemberMapRoleGroupCommands\" />
-      <Folder Include="Queries\MemberMapRoleGroupQueries\" />
-    </ItemGroup>
 </Project>

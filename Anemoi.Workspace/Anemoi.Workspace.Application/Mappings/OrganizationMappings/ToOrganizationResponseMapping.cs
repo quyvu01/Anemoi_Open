@@ -10,7 +10,6 @@ public class ToOrganizationResponseMapping : Profile
     {
         CreateMap<Organization, OrganizationResponse>()
             .ForMember(a => a.ParentOrganizationId,
-                opt => opt.MapFrom(x => x.ParentOrganizationId == null ? null : x.ParentOrganizationId.ToString()))
-            .ForMember(x => x.MemberQuantity, opt => opt.MapFrom(x => x.MemberMapOrganizations.Count));
+                opt => opt.MapFrom(x => x.ParentOrganizationId == null ? null : x.ParentOrganizationId.ToString()));
     }
 }

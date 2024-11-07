@@ -15,14 +15,13 @@ namespace Anemoi.Workspace.Application.Cqrs.Queries.OrganizationQueries.GetOrgan
 public sealed class GetOrganizationsHandler(
     ISqlRepository<Organization> sqlRepository,
     IMapper mapper,
-    ILogger logger,
-    IWorkspaceIdGetter workspaceIdGetter)
+    ILogger logger)
     : EfQueryPaginationHandler<Organization, GetOrganizationsQuery, OrganizationResponse>(sqlRepository, mapper, logger)
 {
     protected override IQueryListFlowBuilder<Organization, OrganizationResponse> BuildQueryFlow(
         IQueryListFilter<Organization, OrganizationResponse> fromFlow, GetOrganizationsQuery query)
         => fromFlow
-            .WithFilter(x => x.WorkspaceId == new WorkspaceId(Guid.Parse(workspaceIdGetter.WorkspaceId)))
+            .WithFilter(null)
             .WithSpecialAction(x => x.ProjectTo<OrganizationResponse>(Mapper.ConfigurationProvider))
             .WithSortFieldWhenNotSet(x => x.Id)
             .WithSortedDirectionWhenNotSet(SortedDirection.Ascending);

@@ -8,11 +8,8 @@ public sealed class WorkspaceResponse : ModelResponse
 {
     public string LogoPath { get; set; }
     public string UserId { get; set; }
-    [UserOf(nameof(UserId))] public string UserName { get; set; }
-
-    [UserOf(nameof(UserId), Expression = "Email")]
+    public string UserName { get; set; }
     public string UserEmail { get; set; }
-
     public string Name { get; set; }
     public DateTime CreatedTime { get; set; }
     public WorkspaceStateResponse State { get; set; }

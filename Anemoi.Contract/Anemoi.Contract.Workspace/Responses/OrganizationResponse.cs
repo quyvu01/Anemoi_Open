@@ -14,7 +14,6 @@ public sealed class OrganizationResponse : ModelResponse
     [ProvinceOf(nameof(ProvinceId))] public string ProvinceName { get; set; }
     public string DistrictId { get; set; }
     [DistrictOf(nameof(DistrictId))] public string DistrictName { get; set; }
-    public int MemberQuantity { get; set; }
     public string Address { get; set; }
     public string PhoneNumber { get; set; }
     public string Email { get; set; }

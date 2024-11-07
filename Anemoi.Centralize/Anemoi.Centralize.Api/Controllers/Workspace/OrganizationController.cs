@@ -2,7 +2,6 @@ using Anemoi.BuildingBlock.Application.Responses;
 using Anemoi.Contract.Workspace.Commands.OrganizationCommands.CreateOrganization;
 using Anemoi.Contract.Workspace.Commands.OrganizationCommands.UpdateOrganization;
 using Anemoi.Contract.Workspace.ModelIds;
-using Anemoi.Contract.Workspace.Queries.OrganizationQueries.CheckIfSubDomainIsValid;
 using Anemoi.Contract.Workspace.Queries.OrganizationQueries.GetOrganization;
 using Anemoi.Contract.Workspace.Queries.OrganizationQueries.GetOrganizations;
 using Anemoi.Contract.Workspace.Responses;
@@ -38,33 +37,12 @@ public sealed class OrganizationController(ISender sender) : ControllerBase
     }
 
     /// <summary>
-    /// CheckIfSubDomainIsValid
-    /// </summary>
-    /// <param name="query"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    [HttpGet]
-    [Authorize(Policy = "Agency")]
-    [ProducesResponseType(typeof(OrganizationResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorDetailResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> CheckIfSubDomainIsValid([FromQuery] CheckIfSubDomainIsValidQuery query,
-        CancellationToken cancellationToken)
-    {
-        var res = await sender.Send(query, cancellationToken);
-        var isValid = res.IsT1;
-        return Ok(isValid);
-    }
-
-    /// <summary>
     /// GetOrganizationByWorkspace
     /// </summary>
     /// <param name="query"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    [Authorize(Policy = "Agency")]
     [ProducesResponseType(typeof(PaginationResponse<OrganizationResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -83,7 +61,6 @@ public sealed class OrganizationController(ISender sender) : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    [Authorize(Policy = "Agency", Roles = "Administrator")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -103,7 +80,6 @@ public sealed class OrganizationController(ISender sender) : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPatch("{id}")]
-    [Authorize(Policy = "Agency", Roles = "Administrator")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
